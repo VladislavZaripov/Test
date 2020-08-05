@@ -1,24 +1,25 @@
 package com.zaripov.test.controller;
 
+import com.zaripov.test.service.Converter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("test")
 public class AppController {
 
-    static int N = 1;
+    private final Converter converter;
+
+    public AppController(Converter converter) {
+        this.converter = converter;
+    }
 
     @GetMapping("convert")
     public ResponseEntity<?> getNumbers(@RequestParam(value = "stringOfNumbers") String stringOfNumbers){
         try {
-            String convertString = Stream.of(stringOfNumbers.split(","))
-                    .map(x -> Integer.parseInt(x) + N)
-                    .map(String::valueOf)
-                    .collect(Collectors.joining(","));
+            String convertString = converter.convertString(stringOfNumbers);
             return ResponseEntity.ok(convertString);
         }
         catch (Exception e){
@@ -29,7 +30,7 @@ public class AppController {
     @PostMapping ("default")
     public ResponseEntity postN(@RequestBody String newN){
         try {
-            N = Integer.parseInt(newN);
+            converter.setN(newN);
             return ResponseEntity.ok().build();
         }
         catch (Exception e){

@@ -1,9 +1,12 @@
 package com.zaripov.test.controller;
 
+import com.zaripov.test.service.Converter;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -19,12 +22,21 @@ class AppControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    @MockBean
+    private Converter converter;
+
     @Test
-    public void testGetNumbers() throws Exception{
+    public void getNumbers() throws Exception{
+
+        Mockito.when(converter.convertString("1,3,2")).thenReturn("2,4,3");
+
         mockMvc.perform(get("http://localhost:8080/test/convert")
                 .param("stringOfNumbers", "1,3,2"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("2,4,3")));
+
+        Mockito.when(converter.convertString("qwerty")).thenThrow(new Exception());
 
         mockMvc.perform(get("http://localhost:8080/test/convert")
                 .param("stringOfNumbers", "qwerty"))
@@ -32,10 +44,14 @@ class AppControllerTest {
     }
 
     @Test
-    public void testPostN() throws Exception{
+    public void postN() throws Exception{
+        Mockito.doNothing().when(converter).setN("2");
+
         mockMvc.perform(post("http://localhost:8080/test/default")
                 .content("2"))
                 .andExpect(status().isOk());
+
+        Mockito.doThrow(new Exception()).when(converter).setN("qwerty");
 
         mockMvc.perform(post("http://localhost:8080/test/default")
                 .content("qwerty"))
