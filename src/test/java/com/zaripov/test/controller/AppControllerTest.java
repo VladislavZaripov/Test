@@ -27,15 +27,17 @@ class AppControllerTest {
     private Converter converter;
 
     @Test
-    public void getNumbers() throws Exception{
-
+    public void getNumbersOk() throws Exception{
         Mockito.when(converter.convertString("1,3,2")).thenReturn("2,4,3");
 
         mockMvc.perform(get("http://localhost:8080/test/convert")
                 .param("stringOfNumbers", "1,3,2"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("2,4,3")));
+    }
 
+    @Test
+    public void getNumbersBad() throws Exception{
         Mockito.when(converter.convertString("qwerty")).thenThrow(new Exception());
 
         mockMvc.perform(get("http://localhost:8080/test/convert")
@@ -44,13 +46,16 @@ class AppControllerTest {
     }
 
     @Test
-    public void postN() throws Exception{
+    public void postNOk() throws Exception{
         Mockito.doNothing().when(converter).setN("2");
 
         mockMvc.perform(post("http://localhost:8080/test/default")
                 .content("2"))
                 .andExpect(status().isOk());
+    }
 
+    @Test
+    public void postNBad() throws Exception{
         Mockito.doThrow(new Exception()).when(converter).setN("qwerty");
 
         mockMvc.perform(post("http://localhost:8080/test/default")
