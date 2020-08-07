@@ -7,12 +7,12 @@ import java.util.stream.Stream;
 @Service
 public class ConverterImpl implements Converter {
 
-    static int N = 1;
+    private static int N = 1;
 
     @Override
     public String convertString(String stringOfNumbers) throws Exception{
         String convertString = Stream.of(stringOfNumbers.split(","))
-                .map(x -> Integer.parseInt(x) + N)
+                .map(x -> Integer.parseInt(x) + getN())
                 .map(String::valueOf)
                 .collect(Collectors.joining(","));
         return convertString;
@@ -21,5 +21,10 @@ public class ConverterImpl implements Converter {
     @Override
     public void setN(String newN) throws Exception{
         N = Integer.parseInt(newN);
+    }
+
+    @Override
+    public Integer getN() {
+        return N;
     }
 }
