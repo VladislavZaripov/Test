@@ -12,12 +12,5 @@ class TestApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Converter converter = new ConverterImpl();
-
-		String actual = "1,3,2";
-		String expected = "2,4,3";
-
-		assertEquals(expected,actual);
 	}
-
 }
