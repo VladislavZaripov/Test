@@ -10,16 +10,15 @@ public class ConverterImpl implements Converter {
     private static int N = 1;
 
     @Override
-    public String convertString(String stringOfNumbers) throws Exception{
-        String convertString = Stream.of(stringOfNumbers.split(","))
+    public String convertString(String stringOfNumbers){
+        return Stream.of(stringOfNumbers.split(","))
                 .map(x -> Integer.parseInt(x) + getN())
                 .map(String::valueOf)
                 .collect(Collectors.joining(","));
-        return convertString;
     }
 
     @Override
-    public void setN(String newN) throws Exception{
+    public void setN(String newN){
         N = Integer.parseInt(newN);
     }
 

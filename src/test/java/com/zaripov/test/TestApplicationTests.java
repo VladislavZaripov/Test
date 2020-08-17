@@ -9,8 +9,4 @@ import static org.junit.Assert.assertEquals;
 
 @SpringBootTest
 class TestApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
 }

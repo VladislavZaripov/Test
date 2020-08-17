@@ -27,7 +27,7 @@ public class AppController {
     }
 
     @PostMapping ("default")
-    public ResponseEntity postN(@RequestBody String newN){
+    public ResponseEntity<?> postN(@RequestBody String newN){
         try {
             converter.setN(newN);
             return ResponseEntity.ok().build();

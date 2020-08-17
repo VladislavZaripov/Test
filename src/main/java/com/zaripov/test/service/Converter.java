@@ -2,9 +2,9 @@ package com.zaripov.test.service;
 
 public interface Converter {
 
-    String convertString(String stringOfNumbers) throws Exception;
+    String convertString(String stringOfNumbers);
 
-    void setN(String newN) throws Exception;
+    void setN(String newN);
 
     Integer getN();
 }
