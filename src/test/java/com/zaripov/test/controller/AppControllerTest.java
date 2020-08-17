@@ -31,7 +31,7 @@ class AppControllerTest {
         Mockito.when(converter.convertString("1,3,2")).thenReturn("2,4,3");
 
         mockMvc.perform(get("http://localhost:8080/test/convert")
-                .param("stringOfNumbers", "1,3,2"))
+                .param("stringOfNumbers", "1,3,21"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("2,4,3")));
     }
