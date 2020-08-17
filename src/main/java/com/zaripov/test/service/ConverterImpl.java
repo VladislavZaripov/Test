@@ -10,7 +10,7 @@ public class ConverterImpl implements Converter {
     private static int N = 1;
 
     @Override
-    public String convertString(String stringOfNumbers){
+    public String convertString(String stringOfNumbers) throws Exception{
         return Stream.of(stringOfNumbers.split(","))
                 .map(x -> Integer.parseInt(x) + getN())
                 .map(String::valueOf)
@@ -18,7 +18,7 @@ public class ConverterImpl implements Converter {
     }
 
     @Override
-    public void setN(String newN){
+    public void setN(String newN) throws Exception{
         N = Integer.parseInt(newN);
     }
 
