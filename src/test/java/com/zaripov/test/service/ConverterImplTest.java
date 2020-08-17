@@ -10,7 +10,7 @@ class ConverterImplTest {
         Converter converter = new ConverterImpl();
 
         String actual = converter.convertString("1,3,2");
-        String expected = "2,4,3";
+        String expected = "2,4,31";
 
         assertEquals(expected,actual);
     }
