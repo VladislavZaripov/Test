@@ -28,7 +28,7 @@ class AppControllerTest {
 
     @Test
     public void getNumbersOk() throws Exception{
-        Mockito.when(converter.convertString("1,3,2")).thenReturn("2,4,3");
+        Mockito.when(converter.convertString("1,3,2")).thenReturn("2,4,31");
 
         mockMvc.perform(get("http://localhost:8080/test/convert")
                 .param("stringOfNumbers", "1,3,2"))
