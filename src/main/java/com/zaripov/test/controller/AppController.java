@@ -20,7 +20,6 @@ public class AppController {
         try {
             String convertString = converter.convertString(stringOfNumbers);
             return ResponseEntity.ok(convertString);
-            
         }
         catch (Exception e){
             return ResponseEntity.badRequest().build();
